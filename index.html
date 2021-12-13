@@ -30,7 +30,27 @@
             //così apre una nuova finestra invece di sovrascrivere quella di weirdGallery
           });
         }
-      });        
+      }); 
+
+      /////prova numero 4 bottoncino (funziona a metà)
+      AFRAME.registerComponent ('button', {
+       schema: {
+        width: {type: 'number', default: 1},
+        height: {type: 'number', default: 1},
+        opacity: {type: 'number', default: 1},////variabile che può anche essere tolta
+        color: {type: 'color', default: '#AAA'},////idem
+       },///chiuso schema
+       init: function () {
+        var bastet = document.querySelector ('.bottoncino');
+        bastet.setAttribute ('visible', false);////not visible at first
+        var cat = this.el
+        var data2 = this.data
+        cat.addEventListener('click', function () {
+            bastet.setAttribute ('visible', true);////becomes visible
+        })///chiuso addeventlistener
+       }///chiuso init
+      });///chiuso registercomponent
+//////only works for 1st time, then nothing --- TODO: fix bottocino, maybe add bottoncino2 per separare apparizione e sparizione? (can be useful)
     </script>
 
   </head>
@@ -67,7 +87,6 @@
         repeat: [object Object];  
         fog: false"
     ></a-sky>
-    <!--gray sky? nicer to the eyes-->
 
     <a-box id="il_piano" 
       position="0 -0.8 0" 
@@ -102,6 +121,8 @@
     position="0 0 0">
 
     <a-entity id="la_UI__progetto_corrente"
+      class="bottoncino"
+      button="width: 4; height: 4; color: magenta"
       position="0 0 -0.01"
       scale ="0.004 0.004 0.004"
       material="transparent: true"> <!-- ora trasparente -->
@@ -127,11 +148,9 @@
 
         <a-text id="il_link_al_progetto"
             position="0 -0.5 0"
-            text="
-              value:{{ acquario.org }};
+            text="value:{{ acquario.org }};
                 color: white; 
-                align: center;
-            ">
+                align: center">
               <a-plane id="il_pulsante_"
                 material="opacity:0"
                 width="1.8"
@@ -142,13 +161,11 @@
         
           <a-text id="l_artista"
           position="0 -0.2 0"
-          text="
-            value:{{ l'Artista }};
+          text="value:{{ l'Artista }};
               color: white; 
-              align: center;
-        ">
+              align: center">
           <a-plane id="il_pulsante_artista"
-            material="opacity:0;"
+            material="opacity:0"
             width="1.2"
             height="0.3"
             navigate-on-click="url: https://www.youtube.com/watch?v=VNfmnOn5O3A" 
