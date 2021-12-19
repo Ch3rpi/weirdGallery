@@ -18,8 +18,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Chilanka&display=swap" rel="stylesheet">
 
-
-
   <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script> <!-- locale o server?-->
 
 
@@ -42,39 +40,39 @@
     });
 
     
-    /////prova numero 4 bottoncino (funziona a metà)
-    AFRAME.registerComponent ('button', {
-       schema: {
-        width: {type: 'number', default: 1},
-        height: {type: 'number', default: 1},
-        opacity: {type: 'number', default: 1},////variabile che può anche essere tolta
-        color: {type: 'color', default: '#AAA'},////idem
-       },///chiuso schema
-       init: function () {
-        var bastet = document.querySelector ('.bottoncino');
-        bastet.setAttribute ('visible', false);////not visible at first
-        var cat = this.el
-        var data2 = this.data
-        cat.addEventListener('click', function () {
-            bastet.setAttribute ('visible', true);////becomes visible
-        })///chiuso addeventlistener
-       }///chiuso init
-      });///chiuso registercomponent
-//////only works for 1st time, then nothing --- TODO: fix bottocino, maybe add bottoncino2 per separare apparizione e sparizione? (can be useful)
+//     /////prova numero 4 bottoncino (funziona a metà)
+//     AFRAME.registerComponent ('button', {
+//        schema: {
+//         width: {type: 'number', default: 1},
+//         height: {type: 'number', default: 1},
+//         opacity: {type: 'number', default: 1},////variabile che può anche essere tolta
+//         color: {type: 'color', default: '#AAA'},////idem
+//        },///chiuso schema
+//        init: function () {
+//         var bastet = document.querySelector ('.bottoncino');
+//         bastet.setAttribute ('visible', false);////not visible at first
+//         var cat = this.el
+//         var data2 = this.data
+//         cat.addEventListener('click', function () {
+//             bastet.setAttribute ('visible', true);////becomes visible
+//         })///chiuso addeventlistener
+//        }///chiuso init
+//       });///chiuso registercomponent
+// //////only works for 1st time, then nothing --- TODO: fix bottocino, maybe add bottoncino2 per separare apparizione e sparizione? (can be useful)
   </script>
+
+  
 
 </head>
 
 <body class="bg-red-800">
-
-  <div id="aframe_canvas" style="position:relative;">
+  <div id="aframe_canvas" style="position:relative">
     <a-scene trasparent="true" vr-mode-ui="enabled: false">
       <!--fix FOG
       fog="type: linear; 
         near: 10; 
         far: 100"
       -->
-
 
       <a-assets id="la_texture_pavimento">
         <img id="nyan" src="/public/grayscale-nyan.png">
@@ -84,7 +82,7 @@
         <a-asset-item id="column-obj" src="/public/colonnaobj/Colonna_base.obj"></a-asset-item>
         <!--<a-asset-item id="column-mtl" src="/public/colonnaobj/Colonna_base.mtl"></a-asset-item>-->
       </a-assets>
-
+      
       <a-box id="il_piano" 
         position="0 -0.8 -50" 
         rotation="-90 0 0" 
@@ -96,8 +94,7 @@
           metalness: 0.7; 
           color: purple; 
           emissive: purple; 
-          repeat: 10 1000" 
-        geometry="height: 100">
+          repeat: 10 1000">
       </a-box>
 
       <a-entity id="l_elemento_metafisico" 
@@ -112,8 +109,23 @@
           animation="property: rotation; to: 360 360 360; loop: true; dur: 90000"
           scale="0.15 0.15 0.15"
         ></a-entity> <!--si può fare anche con texture volendo - TODO trovare soluzione più leggera-->
-
       </a-entity>
+
+      <!--doppio elemento metafisico?-->
+      <a-entity id="l_elemento_metafisico2" 
+        geometry="primitive:icosahedron; radius:3.8" 
+        position="-6 2 10"
+        navigate-on-click="url: ./old.html"
+        animation="property: rotation; to: 360 360 360; dir: reverse; loop: true; dur: 120000"
+        material="opacity:1; metalness:0.8; color:white; blending:additive"
+      >
+        <a-entity 
+          obj-model="obj: #column-obj;" 
+          animation="property: rotation; to: 360 360 360; loop: true; dur: 90000"
+          scale="0.15 0.15 0.15"
+        ></a-entity> 
+      </a-entity>
+      <!--riempie lo spazio dietro che altrimenti sarebbe vuoto e poco simmetrico?-->
 
       <a-camera 
         cursor="rayOrigin: mouse" 
@@ -123,6 +135,7 @@
       ></a-camera>
 
       <a-light id="LUX__ambientale" light="type: ambient" position="0 0 0"></a-light>
+
 
       <!-- LUCI
       <a-entity
@@ -142,7 +155,8 @@
 
     </a-scene>
 
-    <div id="UI" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+   
+      <div id="UI" class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
       
         <div class="flex flex-col space-y-6">
           <div id="current_project_preview" class="flex justify-center">
@@ -152,8 +166,9 @@
             <div class="gradient-text text1" id="nome_artista"><a href="https://docs.google.com/document/d/1cGtF3P_ywNd4_zq2GI5YSzr47-K8BOoaUpjjRP0u1SQ/edit?usp=sharing">[nome_artista]</a></div>
             <div class="gradient-text text1" id="link_progetto"><a href="https://codepen.io/aderaaij/pen/XWpMONO">[link_progetto]</a></div>
           </div>
+        </div>
       </div>
-    </div>
+   
   </div>
   
 </body>
